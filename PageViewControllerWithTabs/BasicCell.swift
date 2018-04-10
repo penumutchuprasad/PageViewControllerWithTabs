@@ -10,23 +10,16 @@ import UIKit
 
 class BasicCell: UICollectionViewCell {
     
-
     let titleLabel: UILabel = {
-       
         let lbl = UILabel()
-        //lbl.text = "Title"
-        
         return lbl
     }()
     
     var indicatorView: UIView!
 
-    
-    
     override var isSelected: Bool {
         
         didSet{
-            
             UIView.animate(withDuration: 0.30) {
                 self.indicatorView.backgroundColor = self.isSelected ? UIColor.blue : UIColor.clear
                 self.layoutIfNeeded()
@@ -34,7 +27,6 @@ class BasicCell: UICollectionViewCell {
         }
         
     }
-
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -60,15 +52,11 @@ class BasicCell: UICollectionViewCell {
     }
    
     func setupIndicatorView() {
-        
         indicatorView = UIView()
         addSubview(indicatorView)
         
-        //changeIndicatorView(fromValue: 0, cellWidth: 50)
-        
         addConstraintsWithFormatString(formate: "H:|[v0]|", views: indicatorView)
         addConstraintsWithFormatString(formate: "V:[v0(3)]|", views: indicatorView)
-        
     }
     
 }

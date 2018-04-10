@@ -19,7 +19,6 @@ class MenuTabsView: UIView, UICollectionViewDelegate, UICollectionViewDataSource
     
         let layOut = UICollectionViewFlowLayout()
         let cv = UICollectionView.init(frame: CGRect.zero, collectionViewLayout: layOut)
-    
         cv.showsHorizontalScrollIndicator = false
         layOut.scrollDirection = .horizontal
         cv.backgroundColor = .white
@@ -28,35 +27,28 @@ class MenuTabsView: UIView, UICollectionViewDelegate, UICollectionViewDataSource
         return cv
     }()
     
+    
     var isSizeToFitCellsNeeded: Bool = false {
-        
         didSet{
-            
             self.collView.reloadData()
         }
     }
 
     var dataArray: [String] = [] {
-        
         didSet{
-            
             self.collView.reloadData()
         }
-        
     }
     
+    
+    
     var menuDelegate: MenuBarDelegate?
-    
     var cellId = "BasicCell"
-    
-    var homeViewController: UIViewController?
-    
     
     override init(frame: CGRect) {
         super.init(frame: frame)
         
         customIntializer()
-        
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -65,16 +57,20 @@ class MenuTabsView: UIView, UICollectionViewDelegate, UICollectionViewDataSource
         customIntializer()
     }
     
+    
     private func customIntializer () {
         
         collView.register(BasicCell.self, forCellWithReuseIdentifier: cellId)
         addSubview(collView)
-        
         addConstraintsWithFormatString(formate: "V:|[v0]|", views: collView)
         addConstraintsWithFormatString(formate: "H:|[v0]|", views: collView)
         backgroundColor = .clear
         
     }
+    
+    
+    var menuDidSelected: ((_ collectionView: UICollectionView, _ indexPath: IndexPath)->())?
+
 
     
     //MARK: CollectionView Delegate Methods
@@ -86,14 +82,18 @@ class MenuTabsView: UIView, UICollectionViewDelegate, UICollectionViewDataSource
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
         if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as? BasicCell {
-            
             cell.titleLabel.text = dataArray[indexPath.item]
-
             return cell
         }
         
         return UICollectionViewCell()
     }
+    
+    
+    
+    
+    
+    
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
@@ -113,6 +113,9 @@ class MenuTabsView: UIView, UICollectionViewDelegate, UICollectionViewDataSource
         return CGSize.init(width: (self.frame.width - 10)/CGFloat(dataArray.count), height: self.frame.height)
     }
     
+    
+    
+    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         return 0
     }
@@ -123,8 +126,9 @@ class MenuTabsView: UIView, UICollectionViewDelegate, UICollectionViewDataSource
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
-        let index = Int(indexPath.item)
+       // menuDidSelected?(collectionView,indexPath)
         
+        let index = Int(indexPath.item)
         menuDelegate?.menuBarDidSelectItemAt(menu: self, index: index)
 
     }
