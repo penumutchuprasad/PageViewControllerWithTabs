@@ -41,7 +41,8 @@ class MenuTabsView: UIView, UICollectionViewDelegate, UICollectionViewDataSource
     }
     
     
-    
+    var menuDidSelected: ((_ collectionView: UICollectionView, _ indexPath: IndexPath)->())?
+
     var menuDelegate: MenuBarDelegate?
     var cellId = "BasicCell"
     
@@ -68,10 +69,6 @@ class MenuTabsView: UIView, UICollectionViewDelegate, UICollectionViewDataSource
         
     }
     
-    
-    var menuDidSelected: ((_ collectionView: UICollectionView, _ indexPath: IndexPath)->())?
-
-
     
     //MARK: CollectionView Delegate Methods
     
@@ -112,8 +109,6 @@ class MenuTabsView: UIView, UICollectionViewDelegate, UICollectionViewDataSource
         
         return CGSize.init(width: (self.frame.width - 10)/CGFloat(dataArray.count), height: self.frame.height)
     }
-    
-    
     
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {

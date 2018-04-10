@@ -42,6 +42,7 @@ class ViewController: UIViewController {
     
     
     /*
+     // Call back function
     func myLocalFunc(_ collectionView: UICollectionView, _ indexPath: IndexPath) {
         
         
